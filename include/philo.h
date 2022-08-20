@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 21:39:11 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/08 20:56:09 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/21 00:12:50 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ typedef struct s_table
 	int t_die;
 	int t_eat;
 	int t_sleep;
-	int t_must_eat;
+	int nb_eat;
+	int	meal;
 	pthread_t *philo;
 	pthread_mutex_t *fork;
+	struct timeval time;
+	time_t current_time;
+	time_t start_time;
 }	t_table;
 
-typedef struct s_list
-{
-	struct s_list *next;
-	struct s_list *prev;
-}	t_list;
 
 /* MAIN */
 

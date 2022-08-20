@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 21:29:44 by sleleu            #+#    #+#              #
-#    Updated: 2022/08/07 17:36:32 by sleleu           ###   ########.fr        #
+#    Updated: 2022/08/20 23:35:29 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CFLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -pthread -D_REENTRANT -DLinux -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -pthread -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:22:31 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/08 18:57:06 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/21 00:19:37 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_set_table(t_table *table)
 	j = 0;
 	while (i++ < table->nb_philo)
 	{
-		pthread_create(&table->philo[i], NULL, &routine, NULL);
+		pthread_create(&table->philo[i], NULL, routine(table), NULL);
 		pthread_mutex_init(&table->fork[i], NULL);
 	}
 	while (j++ < table->nb_philo)
@@ -63,11 +63,11 @@ int	ft_parsing(int argc, char **argv, t_table *table)
 {
 	ft_check_arg(argv, argc);
 	table->nb_philo = ft_atoi(argv[1]);
-	table->t_die = ft_atoi(argv[2]);
-	table->t_eat = ft_atoi(argv[3]);
-	table->t_sleep = ft_atoi(argv[4]);
+	table->t_die = ft_atoi(argv[2]) * 1000;
+	table->t_eat = ft_atoi(argv[3]) * 1000;
+	table->t_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
-		table->t_must_eat = ft_atoi(argv[5]);
+		table->nb_eat = ft_atoi(argv[5]) * 1000;
 	table->philo = malloc(sizeof(pthread_t) * table->nb_philo);
 	if (!table->philo)
 		return (0);
