@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 21:29:44 by sleleu            #+#    #+#              #
-#    Updated: 2022/08/20 23:35:29 by sleleu           ###   ########.fr        #
+#    Updated: 2022/08/21 16:56:50 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = philo
 SRC = src/main.c\
 	  src/parser.c\
 	  src/utils.c\
+	  src/simulation.c\
+	  src/start_philo.c\
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:22:31 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/21 00:19:37 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/21 16:34:09 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,29 @@ void ft_check_arg(char **argv, int argc)
 	}
 }
 
-void	ft_set_table(t_table *table)
+int	ft_get_data(int argc, char **argv, t_table *table)
 {
-	int	i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i++ < table->nb_philo)
-	{
-		pthread_create(&table->philo[i], NULL, routine(table), NULL);
-		pthread_mutex_init(&table->fork[i], NULL);
-	}
-	while (j++ < table->nb_philo)
-	{
-		pthread_join(table->philo[j], NULL);
-	}
-}
-
-int	ft_parsing(int argc, char **argv, t_table *table)
-{
-	ft_check_arg(argv, argc);
 	table->nb_philo = ft_atoi(argv[1]);
-	table->t_die = ft_atoi(argv[2]) * 1000;
-	table->t_eat = ft_atoi(argv[3]) * 1000;
-	table->t_sleep = ft_atoi(argv[4]) * 1000;
+	table->time_die = ft_atoi(argv[2]) * 1000;
+	table->time_eat = ft_atoi(argv[3]) * 1000;
+	table->time_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
 		table->nb_eat = ft_atoi(argv[5]) * 1000;
-	table->philo = malloc(sizeof(pthread_t) * table->nb_philo);
+	table->philo = malloc(sizeof(t_philo) * table->nb_philo);
 	if (!table->philo)
 		return (0);
-	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
+	table->fork = malloc(sizeof(t_fork) * table->nb_philo);
 	if (!table->fork)
+	{
+		// free les structures philosophes si l'alloc rate
 		return (0);
-	ft_set_table(table);
+	}
 	return (1);
+}
+
+void	ft_parsing(int argc, char **argv, t_table *table)
+{
+	ft_check_arg(argv, argc);
+	if (ft_get_data(argc, argv, table) == 0)
+		ft_error();
 }

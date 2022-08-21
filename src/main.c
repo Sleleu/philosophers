@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 21:33:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/21 00:22:46 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/21 16:54:37 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,13 @@ time_t	get_time(t_table *table)
 		return (table->time.tv_sec * 1000) + (table->time.tv_usec / 1000);
 }
 
-void	philo_eat(t_table *table)
-{
-	static int i = 0;
-	pthread_mutex_lock(&table->fork[i]);
-	usleep(table->t_eat);
-	table->current_time = get_time(table);
-	printf("[%ld] %d has taken a fork\n",table->current_time, i + 1);
-	pthread_mutex_unlock(&table->fork[i]);
-	i++;
-}
-
-void*	routine(t_table *table)
-{
-	static int i = 0;
-	
-	philo_eat(table);
-	printf("Test from philo %d, nb = %d\n", (int)getpid(), i);
-	printf("Ending threads\n");
-	return (NULL);
-}
-
 int	main(int argc, char **argv)
 {
 	t_table table;
 	
 	table.start_time = get_time(&table);
-	
 	ft_parsing(argc, argv, &table);
+	ft_set_table(&table);
 	free(table.philo);
 	return (0);
 }
