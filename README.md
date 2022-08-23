@@ -66,7 +66,7 @@ At any point in time, a thread is **joinable** or **detached**. In the joinable 
 
 ### Shared variables with threads
 
-A variable is shared only if one of its instances is referenced by more than one thread. To access shared variables, it's important to implement a mechanism to protect a variable shared by several threads. This mecanisme is called **mutex** (MUTual EXclusion). A variable can lock a shared memory zone.
+A variable is shared only if one of its instances is referenced by more than one thread. To access shared variables, it's important to implement a mechanism to protect a variable shared by several threads. This mecanisme is called **mutex** (MUTual EXclusion). A variable typed `pthread_mutex_t` can lock a shared memory zone.
 
 To dynamically initialize a mutex, we can use to function `pthread_mutex_init` :
 
