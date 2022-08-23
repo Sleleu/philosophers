@@ -35,7 +35,6 @@ We can use pthread_create which is prototyped as follows :
 ```C
 int pthread_create(pthread_t *tid, pthread_attr_t *attr, func *f, void *arg);
 ```
- récoltea l'invers
 This function create a thread, and run a **thread routine** function. If we want neither attributes nor arguments in the routine, we can put a NULL _attr_ and/or NULL _arg_. Otherwise we can place a single pointer, or a pointer to structure if we want multiple arguments. To pass a structure in the routine function :
 
 ```C
