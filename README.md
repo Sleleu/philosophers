@@ -1,6 +1,7 @@
 # philosophers
 
 ![huber](https://user-images.githubusercontent.com/93100775/186047534-422cfcbc-ff69-4d12-a6f3-2c5fa03ffdfd.jpg)
+>_Jean Huber, Le Dîner des philosophes, 1772-1773, Voltaire Foundation, Oxford._
 
 ## Usefull links
 
