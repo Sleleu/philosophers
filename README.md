@@ -1,5 +1,7 @@
 # philosophers
 
+![huber](https://user-images.githubusercontent.com/93100775/186047534-422cfcbc-ff69-4d12-a6f3-2c5fa03ffdfd.jpg)
+
 ## Usefull links
 
 - https://cours.polymtl.ca/inf2610/documentation/notes/chap4.pdf
