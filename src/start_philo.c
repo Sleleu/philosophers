@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:18:31 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/21 20:46:37 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/23 18:42:01 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	ft_create_thread(t_table *table)
 	i = 0;
 	while (i < table->nb_philo)
 	{
+		if (pthread_mutex_init(&table->fork[i].mutex, NULL) != 0)
+			free_stuff(table);
+		table->fork[i].free = 1;
 		if (pthread_create(&table->philo[i].thread, NULL, simulation, (void *)table) != 0)
 			free_stuff(table);
 		table->philo[i].id = i + 1;
@@ -33,9 +36,6 @@ void	ft_create_thread(t_table *table)
 		table->philo[i].alive = 1;
 		table->philo[i].left_fork = 0;
 		table->philo[i].right_fork = 0;
-		if (pthread_mutex_init(&table->fork[i].mutex, NULL) != 0)
-			free_stuff(table);
-		table->fork[i].free = 1;
 		i++;
 	}
 }

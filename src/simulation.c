@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:50:23 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/21 21:11:01 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/22 23:03:07 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void*	simulation(void *arg)
 	int i = 0;
 	while (42)
 	{
-		time_to_eat((t_table *)table, table->philo[i].id);
+		time_to_eat(table, table->philo[i].id);
 		i++;
-		if (i == table->nb_philo)
+		if (i >= table->nb_philo)
 			i = 0;
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 21:33:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/21 16:54:37 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/24 22:34:06 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ int	main(int argc, char **argv)
 	table.start_time = get_time(&table);
 	ft_parsing(argc, argv, &table);
 	ft_set_table(&table);
-	free(table.philo);
 	return (0);
 }
