@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/07 17:22:31 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/22 16:51:55 by sleleu           ###   ########.fr       */
+/*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
+/*   Updated: 2022/08/25 20:15:46 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,85 @@ void ft_check_arg(char **argv, int argc)
 	}
 }
 
-int	ft_get_data(int argc, char **argv, t_table *table)
+t_philo	**ft_alloc_array(t_table *table)
 {
+	t_philo **philo;
+	
+	printf("nb philo alloc : %d\n", table->nb_philo);
+	philo = malloc(sizeof(t_philo *) * table->nb_philo);
+	
+	int i = 0;
+	while (philo[i])
+	 {
+		philo[i] = malloc(sizeof(t_philo));
+		philo[i]->id = 20;
+		philo[i]->right_fork = 0;
+		philo[i]->left_fork = 0;
+		philo[i]->table = table;
+		printf("%d\n", i);
+		 i++;
+	 }
+	if (!philo)
+		return (0);
+	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
+	if (!table->fork)
+		{
+			free(philo);
+			return(0);
+		}
+	printf("nb philo alloc : %d\n", table->nb_philo);
+	return (philo);
+}
+
+void	ft_get_data(t_table *table, t_philo **philo)
+{
+	int	i;
+	
+	i = 0;
+	printf("nb philo data : %d\n", table->nb_philo);
+	/*while (i < table->nb_philo)
+	{
+		philo[i]->id = i;
+		philo[i]->right_fork = 0;
+		philo[i]->left_fork = 0;
+		philo[i]->table = table;
+		printf("nb philo dans boucle : %d, valeur de i %d\n", table->nb_philo, i);
+		i++;
+	}*/
+}
+
+void	ft_parsing(int argc, char **argv, t_table *table)
+{
+	t_philo *philo;
+	
+	ft_check_arg(argv, argc);
 	table->nb_philo = ft_atoi(argv[1]);
 	table->time_die = ft_atoi(argv[2]) * 1000;
 	table->time_eat = ft_atoi(argv[3]) * 1000;
 	table->time_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
-		table->nb_eat = ft_atoi(argv[5]) * 1000;
-	table->philo = malloc(sizeof(t_philo) * table->nb_philo);
-	if (!table->philo)
-		return (0);
-	table->fork = malloc(sizeof(t_fork) * table->nb_philo);
+		table->nb_eat = ft_atoi(argv[5]);
+	philo = malloc(sizeof(t_philo) * table->nb_philo);
+	int i = 0;
+	while (i < table->nb_philo)
+	 {
+		philo[i].id = i;
+		philo[i].right_fork = 0;
+		philo[i].left_fork = 0;
+		philo[i].table = table;
+		printf("id %d\n", i);
+		 i++;
+	 }
+	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
 	if (!table->fork)
-	{
-		// free les structures philosophes si l'alloc rate
-		return (0);
-	}
-	return (1);
-}
-
-void	ft_parsing(int argc, char **argv, t_table *table)
-{
-	ft_check_arg(argv, argc);
-	if (ft_get_data(argc, argv, table) == 0)
-		ft_error();
+		{
+			free(philo);
+			return ;
+		}
+	printf("nb philo : %d\n", table->nb_philo);	
+	//philo = ft_alloc_array(table);
+		printf("nb philo apres alloc : %d\n", table->nb_philo);
+//	ft_get_data(table, philo);
+	printf("nb philo apres data : %d\n", table->nb_philo);
+	ft_start_philo(table, philo);
 }

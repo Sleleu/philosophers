@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 21:39:11 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/23 18:56:12 by sleleu           ###   ########.fr       */
+/*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
+/*   Updated: 2022/08/25 20:14:43 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,21 @@
 
 typedef struct s_philo
 {
-	int id;
-	int alive;
-	int	r_fork;
-	int	l_fork;
-	int nb_eat;
-	pthread_t thread;
-	struct s_table;
+	int	id;
+	int	alive;
+	int	left_fork;
+	int	right_fork;
+	pthread_t	thread;
+	struct s_table *table;
 }	t_philo;
 
 typedef struct s_table
 {
-	int nb_philo;
-	int time_die;
+	int	nb_philo;
+	int	time_die;
 	int time_eat;
-	int time_sleep;
-	int nb_eat;
-	int	meal;
+	int	time_sleep;
+	int	nb_eat;
 	pthread_mutex_t *fork;
 	pthread_t controller;
 	struct timeval time;
@@ -54,9 +52,10 @@ time_t	get_time(t_table *table);
 void	ft_error(void);
 void	ft_parsing(int argc, char **argv, t_table *table);
 
-/* SET_TABLE */
+/* START PHILO */
 
-void	ft_set_table(t_table *table);
+void	free_stuff(t_table *table, t_philo **philo);
+void	ft_start_philo(t_table *table, t_philo *philo);
 
 /* SIMULATION */
 
@@ -65,5 +64,6 @@ void*	simulation(void *table);
 /* UTILS */
 
 int	ft_atoi(const char *str);
+
 
 #endif
