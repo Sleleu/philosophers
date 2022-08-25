@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/25 20:14:43 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/25 23:15:15 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_table
 
 /* MAIN */
 
-time_t	get_time(t_table *table);
+
 
 /* PARSER */
 
@@ -54,11 +54,13 @@ void	ft_parsing(int argc, char **argv, t_table *table);
 
 /* START PHILO */
 
-void	free_stuff(t_table *table, t_philo **philo);
+time_t	get_time(t_table *table);
+void	free_stuff(t_table *table, t_philo *philo);
 void	ft_start_philo(t_table *table, t_philo *philo);
 
 /* SIMULATION */
 
+void	time_to_eat(t_philo *philo);
 void*	simulation(void *table);
 
 /* UTILS */
