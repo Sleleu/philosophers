@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/25 23:15:15 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/26 02:01:36 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ typedef struct s_philo
 {
 	int	id;
 	int	alive;
-	int	left_fork;
-	int	right_fork;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*r_fork;
+	int got_l_fork;
+	int	got_r_fork;
 	pthread_t	thread;
 	struct s_table *table;
 }	t_philo;

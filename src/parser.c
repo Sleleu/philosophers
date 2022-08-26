@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/25 22:11:36 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/26 02:04:02 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_check_arg(char **argv, int argc)
 				ft_error();
 			j++;
 		}
-		if (ft_atoi(argv[i]) == 0)
+		if (ft_atoi(argv[1]) == 0)
 			ft_error();
 		i++;
 	}
@@ -43,30 +43,33 @@ void	ft_check_arg(char **argv, int argc)
 
 t_philo	*ft_alloc_array(t_table *table)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	philo = malloc(sizeof(t_philo) * table->nb_philo);
 	if (!philo)
-		return (0);
+		return (NULL);
 	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
 	if (!table->fork)
-		{
-			free(philo);
-			return (NULL);
-		}
+	{
+		free(philo);
+		return (NULL);
+	}
 	return (philo);
 }
 
 void	ft_get_data(t_table *table, t_philo *philo)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < table->nb_philo)
 	{
 		philo[i].id = i;
-		philo[i].right_fork = 0;
-		philo[i].left_fork = 0;
+		philo[i].got_l_fork = 0;
+		philo[i].got_r_fork = 0;
+		philo[i].l_fork = &table->fork[i];
+		philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo - 1)]; // si dernier id, la fork sera la premiere
+		philo[i].alive = 1;
 		philo[i].table = table;
 		i++;
 	}
@@ -74,15 +77,15 @@ void	ft_get_data(t_table *table, t_philo *philo)
 
 void	ft_parsing(int argc, char **argv, t_table *table)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	ft_check_arg(argv, argc);
 	table->nb_philo = ft_atoi(argv[1]);
 	table->time_die = ft_atoi(argv[2]) * 1000;
 	table->time_eat = ft_atoi(argv[3]) * 1000;
 	table->time_sleep = ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
-		table->nb_eat = ft_atoi(argv[5]);	
+	table->nb_eat = ft_atoi(argv[5]);
 	philo = ft_alloc_array(table);
 	ft_get_data(table, philo);
 	ft_start_philo(table, philo);
