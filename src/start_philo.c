@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:38:53 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/25 23:39:08 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/27 03:07:45 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	ft_start_philo(t_table *table, t_philo *philo)
 	i = 0;
 	while (i < table->nb_philo)
 	{
-		if (pthread_create(&philo[i].thread, NULL, simulation, &philo[i]) != 0)
+		if (pthread_create(&philo[i].thread, NULL, simulation, &philo[i]) != 0
+			|| pthread_create(&table->control, NULL, controller, table) != 0)
 			free_stuff(table, philo);
 		i++;
 	}

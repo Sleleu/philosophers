@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/26 03:02:14 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/27 03:17:52 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,40 @@ void	take_fork(t_philo *philo)
 	}
 }
 
+void*	controller(void *arg)
+{
+	t_table *table;
+	int	i;
+
+	table = (t_table *)arg;
+	i = 0;
+	while (42)
+	{
+		if (i == table->nb_philo)
+			i = 0;
+		if (table->philo[i].alive == 0)
+		{
+			pthread_mutex_lock(&table->philo[i].died);
+			table->current_time = get_time(table);
+			printf("[%ld] %d died\n", table->current_time, table->philo[i].id);
+			exit(EXIT_FAILURE);
+			pthread_mutex_unlock(&table->philo[i].died);
+		}
+		i++;
+	}	
+}
 void*	simulation(void *arg)
 {
 	t_philo *philo;
-		
+	
 	philo = (t_philo *)arg;
 	while (42)
 	{
 		take_fork(philo);
 		eat(philo);
 		think(philo);
+		if (philo->id == 3)
+			philo->alive = 0; // TEST FONCTION CONTROLLER;
 	}
 	return (NULL);
 }

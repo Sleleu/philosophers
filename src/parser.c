@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/26 02:04:02 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/27 03:03:31 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void	ft_parsing(int argc, char **argv, t_table *table)
 	table->nb_eat = ft_atoi(argv[5]);
 	philo = ft_alloc_array(table);
 	ft_get_data(table, philo);
+	table->philo = philo;
 	ft_start_philo(table, philo);
 }
