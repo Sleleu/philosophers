@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/29 18:02:57 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/29 22:15:06 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_get_data(t_table *table, t_philo *philo)
 		if (philo[i].id % 2 == 0)
 		{
 			philo[i].l_fork = &table->fork[i];
-			philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo - 1)]; // si dernier id, la fork sera la premiere
+			philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo - 1)];
 		}
 		else
 		{
@@ -78,6 +78,7 @@ void	ft_get_data(t_table *table, t_philo *philo)
 			philo[i].l_fork = &table->fork[(i + 1) % (table->nb_philo - 1)];
 		}
 		philo[i].alive = 1;
+		philo[i].last_eat = 0;
 		philo[i].table = table;
 		i++;
 	}
@@ -92,6 +93,7 @@ void	ft_parsing(int argc, char **argv, t_table *table)
 	table->time_die = ft_atoi(argv[2]) * 1000;
 	table->time_eat = ft_atoi(argv[3]) * 1000;
 	table->time_sleep = ft_atoi(argv[4]) * 1000;
+	table->died = 0;
 	if (argc == 6)
 	table->nb_eat = ft_atoi(argv[5]);
 	philo = ft_alloc_array(table);

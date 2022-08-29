@@ -6,11 +6,27 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:58:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/25 01:58:55 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/29 22:28:45 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	ft_usleep(useconds_t useconds, t_philo *philo)
+{	
+	if (philo->table->time_die < useconds)
+	{
+		useconds = philo->table->time_die;
+		usleep(useconds);
+		pthread_mutex_lock(&philo->died);
+		philo->alive = 0;
+		pthread_mutex_unlock(&philo->died);
+		ft_is_dead(philo);
+		return (0);
+	}
+	usleep(useconds);
+	return (0);
+}
 
 int	ft_atoi(const char *str)
 {
