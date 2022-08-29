@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/27 21:29:44 by sleleu            #+#    #+#              #
-#    Updated: 2022/08/29 17:23:04 by sleleu           ###   ########.fr        #
+#    Updated: 2022/08/29 19:52:43 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -fsanitize=thread -g -pthread -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -g -pthread -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

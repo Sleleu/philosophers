@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/29 17:33:34 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/29 19:42:50 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ typedef struct s_table
 	int	time_sleep;
 	int	nb_eat;
 	pthread_mutex_t *fork;
+	pthread_mutex_t print;
 	pthread_t control;
-	//struct timeval time;
-	//time_t current_time;
 	time_t start_time;
 	t_philo *philo;
 }	t_table;
