@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:38:53 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/27 03:07:45 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/29 17:33:22 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 
 time_t	get_time(t_table *table)
 {
-	static int	i = 0;
-
-	gettimeofday(&table->time, NULL);
-	if (i != 0)
-	{
-		table->current_time = (table->time.tv_sec * 1000)
-			+ (table->time.tv_usec / 1000);
-		return (table->current_time -= table->start_time);
-	}
-	i++;
-	return ((table->time.tv_sec * 1000) + (table->time.tv_usec / 1000));
+	struct timeval time;
+	
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 void	free_stuff(t_table *table, t_philo *philo)
