@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/29 22:15:06 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 01:19:03 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	ft_parsing(int argc, char **argv, t_table *table)
 
 	ft_check_arg(argv, argc);
 	table->nb_philo = ft_atoi(argv[1]);
-	table->time_die = ft_atoi(argv[2]) * 1000;
-	table->time_eat = ft_atoi(argv[3]) * 1000;
-	table->time_sleep = ft_atoi(argv[4]) * 1000;
+	table->time_die = ft_atoi(argv[2]);
+	table->time_eat = ft_atoi(argv[3]);
+	table->time_sleep = ft_atoi(argv[4]);
 	table->died = 0;
 	if (argc == 6)
 	table->nb_eat = ft_atoi(argv[5]);

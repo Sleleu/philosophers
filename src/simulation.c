@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/29 22:32:44 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 01:37:03 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	think(t_philo *philo)
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
 		printf("[%ld] %d is thinking\n", get_time(philo->table) - philo->table->start_time, philo->id);
-	usleep(philo->table->time_sleep);
+	usleep(100);
 	pthread_mutex_unlock(&philo->table->print);
 }
 
@@ -36,7 +36,7 @@ void	get_some_sleep(t_philo *philo)
 	if (philo->table->died == 0)
 		printf("[%ld] %d is sleeping\n", get_time(philo->table) - philo->table->start_time, philo->id);
 	pthread_mutex_unlock(&philo->table->print);
-	usleep(philo->table->time_sleep);
+	ft_usleep(philo->table->time_sleep, philo);
 }
 
 void	eat(t_philo *philo)
