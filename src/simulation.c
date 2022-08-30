@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 06:03:42 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 08:19:14 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,49 +16,33 @@ void	think(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
-		printf("[%ld] %d is thinking\n", get_time(philo->table) - philo->table->start_time, philo->id);
+		printf("[%ld] %d is thinking\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
 	pthread_mutex_unlock(&philo->table->print);
-	usleep(100);
+	usleep(400);
 }
 
 void	get_some_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
-		printf("[%ld] %d is sleeping\n", get_time(philo->table) - philo->table->start_time, philo->id);
+		printf("[%ld] %d is sleeping\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
 	pthread_mutex_unlock(&philo->table->print);
 	usleep(philo->table->time_sleep * 1000);
 }
 
-void	odd_take_fork(t_philo *philo)
-{
-	pthread_mutex_lock(philo->l_fork);
-	philo->got_l_fork = 1;
-	pthread_mutex_lock(&philo->table->print);
-	if (philo->table->died == 0)
-		printf("[%ld] %d has taken fork %d\n", get_time(philo->table) - philo->table->start_time, philo->id, (philo->id + 1) % (philo->table->nb_philo));
-	pthread_mutex_unlock(&philo->table->print);
-	pthread_mutex_lock(philo->r_fork);
-	philo->got_r_fork = 1;
-	pthread_mutex_lock(&philo->table->print);
-	if (philo->table->died == 0)
-		printf("[%ld] %d has taken fork %d\n", get_time(philo->table) - philo->table->start_time, philo->id, philo->id);
-	pthread_mutex_unlock(&philo->table->print);
-}
-
-void	even_take_fork(t_philo *philo)
+void	take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
 	philo->got_r_fork = 1;
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
-		printf("[%ld] %d has taken fork %d\n", get_time(philo->table) - philo->table->start_time, philo->id, (philo->id + 1) % (philo->table->nb_philo));
+		printf("[%ld] %d has taken a fork\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
 	pthread_mutex_unlock(&philo->table->print);
 	pthread_mutex_lock(philo->l_fork);
 	philo->got_l_fork = 1;
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
-		printf("[%ld] %d has taken fork %d\n", get_time(philo->table) - philo->table->start_time, philo->id, philo->id);
+		printf("[%ld] %d has taken a fork\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
 	pthread_mutex_unlock(&philo->table->print);
 }
 
@@ -66,7 +50,7 @@ void	eat(t_philo *philo)
 {	
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
-		printf("[%ld] %d is eating\n", get_time(philo->table) - philo->table->start_time, philo->id);
+		printf("[%ld] %d is eating\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
 	pthread_mutex_unlock(&philo->table->print);
 	usleep(philo->table->time_eat * 1000);
 	pthread_mutex_lock(&philo->died);
@@ -90,13 +74,14 @@ void*	controller(void *arg)
 	{
 		if (i == table->nb_philo)
 			i = 0;
+		usleep(1000);
 		pthread_mutex_lock(&table->philo[i].died);
 		if (get_time(table) - table->philo[i].last_eat > table->time_die)
 		{
 			pthread_mutex_unlock(&table->philo[i].died);
 			pthread_mutex_lock(&table->print);
 			if (table->died == 0)
-				printf("[%ld] %d died\n", get_time(table) - table->start_time, table->philo->id);
+				printf("[%ld] %d died\n", get_time(table) - table->start_time, table->philo->id + 1);
 			table->died = 1;
 			pthread_mutex_unlock(&table->print);
 			exit(EXIT_FAILURE);
@@ -110,15 +95,16 @@ void*	simulation(void *arg)
 	t_philo *philo;
 	
 	philo = (t_philo *)arg;
+	
+	if (philo->id % 2 == 0)
+		usleep(10000);
 	while (42)
 	{
-		if (philo->id % 2 == 0)
-			even_take_fork(philo);
-		else if (philo->id %2 == 1)
-			odd_take_fork(philo);
+		take_fork(philo);
 		if (philo->got_l_fork == 1 && philo->got_r_fork == 1)
 			eat(philo);
-		think(philo);
+		else
+			think(philo);
 	}
 	return (NULL);
 }

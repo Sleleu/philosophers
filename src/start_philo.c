@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:38:53 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/29 19:43:17 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 07:17:21 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ void	ft_start_philo(t_table *table, t_philo *philo)
 	{
 		if (pthread_mutex_init(&table->fork[i], NULL) != 0)
 			free_stuff(table, philo);
-		if (pthread_mutex_init(&table->print, NULL) != 0)
+		if (pthread_mutex_init(&philo[i].died, NULL) != 0)
 			free_stuff(table, philo);
 		i++;
 	}
+	if (pthread_mutex_init(&table->print, NULL) != 0)
+		free_stuff(table, philo);
 	i = 0;
 	while (i < table->nb_philo)
 	{
