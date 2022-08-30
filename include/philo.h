@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 09:05:29 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 10:37:27 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define FORK 1
+# define EAT 2
+# define SLEEP 3
+# define THINK 4
 
 typedef struct s_philo
 {
@@ -72,7 +77,7 @@ void*	simulation(void *table);
 
 /* UTILS */
 
-int	ft_usleep(useconds_t useconds, t_philo *philo);
+int	ft_print(t_philo *philo, int print);
 int	ft_atoi(const char *str);
 
 

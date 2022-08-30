@@ -6,11 +6,28 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:58:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 03:41:20 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 10:37:00 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	ft_print(t_philo *philo, int print)
+{
+	pthread_mutex_lock(&philo->table->print);
+	if (philo->table->died == 0)
+	{
+		if (print == 1)
+			printf("[%ld] %d has taken a fork\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
+		else if (print == 2)
+			printf("[%ld] %d is eating\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
+		else if (print == 3)
+			printf("[%ld] %d is sleeping\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
+		else if (print == 4)
+			printf("[%ld] %d is thinking\n", get_time(philo->table) - philo->table->start_time, philo->id + 1);
+	}	
+	pthread_mutex_unlock(&philo->table->print);
+}
 
 int	ft_atoi(const char *str)
 {
