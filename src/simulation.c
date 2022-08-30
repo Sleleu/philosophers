@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 08:19:14 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 09:05:53 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_some_sleep(t_philo *philo)
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
+	pthread_mutex_lock(philo->r_fork); // MUTEX A CHECKER AVEC L_fork
 	philo->got_r_fork = 1;
 	pthread_mutex_lock(&philo->table->print);
 	if (philo->table->died == 0)
@@ -97,7 +97,7 @@ void*	simulation(void *arg)
 	philo = (t_philo *)arg;
 	
 	if (philo->id % 2 == 0)
-		usleep(10000);
+		usleep(5000);
 	while (42)
 	{
 		take_fork(philo);
