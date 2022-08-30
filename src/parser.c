@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 01:19:03 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 02:31:37 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ t_philo	*ft_alloc_array(t_table *table)
 {
 	t_philo	*philo;
 
-	philo = malloc(sizeof(t_philo) * table->nb_philo);
+	philo = malloc(sizeof(t_philo) * table->nb_philo + 1);
 	if (!philo)
 		return (NULL);
-	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
+	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo + 1);
 	if (!table->fork)
 	{
 		free(philo);
@@ -67,18 +67,10 @@ void	ft_get_data(t_table *table, t_philo *philo)
 		philo[i].id = i;
 		philo[i].got_l_fork = 0;
 		philo[i].got_r_fork = 0;
-		if (philo[i].id % 2 == 0)
-		{
-			philo[i].l_fork = &table->fork[i];
-			philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo - 1)];
-		}
-		else
-		{
-			philo[i].r_fork = &table->fork[i];
-			philo[i].l_fork = &table->fork[(i + 1) % (table->nb_philo - 1)];
-		}
+		philo[i].l_fork = &table->fork[i];
+		philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo - 1)];
 		philo[i].alive = 1;
-		philo[i].last_eat = 0;
+		philo[i].last_eat = get_time(table);
 		philo[i].table = table;
 		i++;
 	}
