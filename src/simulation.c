@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 04:17:19 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/30 06:03:42 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,7 @@ void*	simulation(void *arg)
 		if (philo->id % 2 == 0)
 			even_take_fork(philo);
 		else if (philo->id %2 == 1)
-		{
-			usleep(100);
 			odd_take_fork(philo);
-		}
 		if (philo->got_l_fork == 1 && philo->got_r_fork == 1)
 			eat(philo);
 		think(philo);
