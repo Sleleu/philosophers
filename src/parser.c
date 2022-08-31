@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 09:07:52 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 11:22:26 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_philo	*ft_alloc_array(t_table *table)
 	return (philo);
 }
 
-void	ft_get_data(t_table *table, t_philo *philo)
+void	ft_get_data(int argc, char **argv, t_table *table, t_philo *philo)
 {
 	int	i;
 
@@ -71,6 +71,15 @@ void	ft_get_data(t_table *table, t_philo *philo)
 		philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo)];
 		philo[i].alive = 1;
 		philo[i].table = table;
+		if (argc == 6)
+		{
+			if (ft_atoi(argv[5]) < 0)
+				ft_error();
+			else
+			philo[i].nb_eat = ft_atoi(argv[5]);
+		}
+		else
+			philo[i].nb_eat = -1;
 		i++;
 	}
 }
@@ -85,10 +94,8 @@ void	ft_parsing(int argc, char **argv, t_table *table)
 	table->time_eat = ft_atoi(argv[3]);
 	table->time_sleep = ft_atoi(argv[4]);
 	table->died = 0;
-	if (argc == 6)
-	table->nb_eat = ft_atoi(argv[5]);
 	philo = ft_alloc_array(table);
-	ft_get_data(table, philo);
+	ft_get_data(argc, argv, table, philo);
 	table->philo = philo;
 	ft_start_philo(table, philo);
 }

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 10:57:18 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 11:17:56 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	eat(t_philo *philo)
 	ft_print(philo, EAT);
 	usleep(philo->table->time_eat * 1000);
 	pthread_mutex_lock(&philo->eat_check);
-	philo->last_eat = get_time();
+	if (philo->nb_eat != 0)
+		philo->last_eat = get_time();
+	if (philo->nb_eat != -1 && philo->nb_eat != 0)
+		philo->nb_eat--;
 	pthread_mutex_unlock(&philo->eat_check);
 	philo->got_l_fork = 0;
 	philo->got_r_fork = 0;

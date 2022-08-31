@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:25:56 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 10:56:49 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 11:04:07 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void end_philo(t_table *table)
 	if (pthread_detach(table->control) != 0)
 		free_stuff(table);
 	i = 0;
-	/*while (i < table->nb_philo)
+	while (i < table->nb_philo)
 	{
 		if (pthread_mutex_destroy(&table->fork[i]) != 0
 			|| pthread_mutex_destroy(&table->philo[i].eat_check) != 0)
