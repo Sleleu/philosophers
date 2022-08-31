@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:38:53 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 09:23:49 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 10:58:21 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,16 @@ void	ft_start_philo(t_table *table, t_philo *philo)
 		i++;
 	}
 	i = 0;
-	end_philo(table);
-	/*while (i < table->nb_philo)
+	//end_philo(table);
+	
+	while (i < table->nb_philo)
 	{
 		if (pthread_join(philo[i].thread, NULL) != 0)
 			free_stuff(table);
 		i++;
 	}
 		if (pthread_join(table->control, NULL) != 0)
-			free_stuff(table);*/
+			free_stuff(table);
+	//	free(table->philo);
+	//	free(table->fork);
 }

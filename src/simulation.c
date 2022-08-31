@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 09:23:41 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 10:57:18 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void*	controller(void *arg)
 				printf("[%ld] %d died\n", get_time() - table->start_time, table->philo[i].id + 1);
 			table->died = 1;
 			pthread_mutex_unlock(&table->print);
-			exit(0);
+			exit(EXIT_FAILURE);
 		}
 			pthread_mutex_unlock(&table->philo[i].eat_check);
 		i++;
