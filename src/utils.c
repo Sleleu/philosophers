@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:58:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 11:16:57 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:21:40 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ void	ft_print(t_philo *philo, int print)
 	if (philo->table->died == 0)
 	{
 		if (print == 1)
-			printf("[%ld] %d has taken a fork\n", get_time() - philo->table->start_time, philo->id + 1);
+			printf("[%ld] %d has taken a fork\n", get_time()
+				- philo->table->start_time, philo->id + 1);
 		else if (print == 2 && philo->nb_eat != 0)
-			printf("[%ld] %d is eating\n", get_time() - philo->table->start_time, philo->id + 1);
+			printf("[%ld] %d is eating\n", get_time()
+				- philo->table->start_time, philo->id + 1);
 		else if (print == 3)
-			printf("[%ld] %d is sleeping\n", get_time() - philo->table->start_time, philo->id + 1);
+			printf("[%ld] %d is sleeping\n", get_time()
+				- philo->table->start_time, philo->id + 1);
 		else if (print == 4)
-			printf("[%ld] %d is thinking\n", get_time() - philo->table->start_time, philo->id + 1);
+			printf("[%ld] %d is thinking\n", get_time()
+				- philo->table->start_time, philo->id + 1);
 	}	
 	pthread_mutex_unlock(&philo->table->print);
 }

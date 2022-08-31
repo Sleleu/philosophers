@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 11:22:26 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 12:26:29 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_get_data(int argc, char **argv, t_table *table, t_philo *philo)
 		philo[i].l_fork = &table->fork[i];
 		philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo)];
 		philo[i].alive = 1;
+		philo[i].last_eat = get_time();
 		philo[i].table = table;
 		if (argc == 6)
 		{

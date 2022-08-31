@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:52:01 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 11:17:56 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:09:01 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,12 @@ void	eat(t_philo *philo)
 {
 	ft_print(philo, EAT);
 	usleep(philo->table->time_eat * 1000);
-	pthread_mutex_lock(&philo->eat_check);
+	pthread_mutex_lock(&philo->table->eat_check);
 	if (philo->nb_eat != 0)
 		philo->last_eat = get_time();
 	if (philo->nb_eat != -1 && philo->nb_eat != 0)
 		philo->nb_eat--;
-	pthread_mutex_unlock(&philo->eat_check);
-	philo->got_l_fork = 0;
-	philo->got_r_fork = 0;
+	pthread_mutex_unlock(&philo->table->eat_check);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
 	get_some_sleep(philo);
@@ -60,19 +58,21 @@ void*	controller(void *arg)
 	{
 		if (i == table->nb_philo)
 			i = 0;
-		usleep(5000);
-		pthread_mutex_lock(&table->philo[i].eat_check);
+		usleep(1000);
+		pthread_mutex_lock(&table->eat_check);
 		if (get_time() - table->philo[i].last_eat > table->time_die)
 		{
-			pthread_mutex_unlock(&table->philo[i].eat_check);
+			pthread_mutex_unlock(&table->eat_check);
 			pthread_mutex_lock(&table->print);
 			if (table->died == 0)
 				printf("[%ld] %d died\n", get_time() - table->start_time, table->philo[i].id + 1);
+			pthread_mutex_lock(&table->eat_check);
 			table->died = 1;
+			pthread_mutex_unlock(&table->eat_check);
 			pthread_mutex_unlock(&table->print);
-			exit(EXIT_FAILURE);
+			return (NULL);
 		}
-			pthread_mutex_unlock(&table->philo[i].eat_check);
+			pthread_mutex_unlock(&table->eat_check);
 		i++;
 	}	
 }
@@ -82,12 +82,16 @@ void*	simulation(void *arg)
 	
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
-		usleep(15000);
-	while (42)
+		usleep(8000);
+	pthread_mutex_lock(&philo->table->eat_check);
+	while (philo->table->died == 0)
 	{
+		pthread_mutex_unlock(&philo->table->eat_check);
 		take_fork(philo);
 		eat(philo);
 		think(philo);
+		pthread_mutex_lock(&philo->table->eat_check);
 	}
+		pthread_mutex_unlock(&philo->table->eat_check);
 	return (NULL);
 }

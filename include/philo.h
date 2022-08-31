@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 11:13:21 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 11:30:26 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_philo
 	int	alive;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	pthread_mutex_t eat_check;
 	int got_l_fork;
 	int	got_r_fork;
 	time_t last_eat;
@@ -48,6 +47,7 @@ typedef struct s_table
 	int died;
 	pthread_mutex_t *fork;
 	pthread_mutex_t print;
+	pthread_mutex_t eat_check;
 	pthread_t control;
 	time_t start_time;
 	t_philo *philo;
