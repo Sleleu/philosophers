@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 22:40:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/30 10:37:27 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 09:12:09 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_philo
 	int	alive;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
-	pthread_mutex_t died;
+	pthread_mutex_t eat_check;
 	int got_l_fork;
 	int	got_r_fork;
 	time_t last_eat;
@@ -55,7 +55,7 @@ typedef struct s_table
 
 /* MAIN */
 
-
+void end_philo(t_table *table);
 
 /* PARSER */
 
@@ -64,8 +64,8 @@ void	ft_parsing(int argc, char **argv, t_table *table);
 
 /* START PHILO */
 
-time_t	get_time(t_table *table);
-void	free_stuff(t_table *table, t_philo *philo);
+time_t	get_time(void);
+void	free_stuff(t_table *table);
 void	ft_start_philo(t_table *table, t_philo *philo);
 
 /* SIMULATION */
@@ -77,7 +77,7 @@ void*	simulation(void *table);
 
 /* UTILS */
 
-int	ft_print(t_philo *philo, int print);
+void	ft_print(t_philo *philo, int print);
 int	ft_atoi(const char *str);
 
 
