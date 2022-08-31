@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:58:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 13:21:40 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 14:03:23 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	ft_print(t_philo *philo, int print)
 	pthread_mutex_unlock(&philo->table->print);
 }
 
-int	ft_atoi(const char *str)
+long int	ft_atoi(const char *str)
 {
-	int		result;
-	int		sign;
+	long int		result;
+	long int		sign;
 
 	result = 0;
 	sign = 1;

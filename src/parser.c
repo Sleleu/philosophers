@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 01:29:27 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 12:26:29 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 14:03:58 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ void	ft_error(void)
 
 void	ft_check_arg(char **argv, int argc)
 {
-	int	i;
-	int	j;
+	int			i;
+	long int	j;
 
 	i = 1;
 	if (argc < 5 || argc > 6)
 		ft_error();
 	while (argv[i])
 	{
+		j = ft_atoi(argv[i]);
+		if (j > 2147483647)
+			ft_error();
 		j = 0;
 		while (argv[i][j])
 		{
@@ -65,8 +68,6 @@ void	ft_get_data(int argc, char **argv, t_table *table, t_philo *philo)
 	while (i < table->nb_philo)
 	{
 		philo[i].id = i;
-		philo[i].got_l_fork = 0;
-		philo[i].got_r_fork = 0;
 		philo[i].l_fork = &table->fork[i];
 		philo[i].r_fork = &table->fork[(i + 1) % (table->nb_philo)];
 		philo[i].alive = 1;

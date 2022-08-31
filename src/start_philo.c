@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:38:53 by sleleu            #+#    #+#             */
-/*   Updated: 2022/08/31 12:27:33 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:39:22 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 time_t	get_time(void)
 {
-	struct timeval time;
-	
+	struct timeval	time;
+
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
@@ -27,7 +27,7 @@ void	free_stuff(t_table *table)
 	ft_error();
 }
 
-void	ft_start_mutex(t_table *table, t_philo *philo)
+void	ft_start_mutex(t_table *table)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ void	ft_start_philo(t_table *table, t_philo *philo)
 	int	i;
 
 	i = 0;
-	ft_start_mutex(table, philo);
+	ft_start_mutex(table);
 	table->start_time = get_time();
 	if (pthread_create(&table->control, NULL, controller, table) != 0)
 		free_stuff(table);
