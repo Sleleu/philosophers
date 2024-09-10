@@ -122,5 +122,5 @@ Generally, a set of processes is deadlocked if each process is waiting for the r
 ## Usefull links
 
 - https://cours.polymtl.ca/inf2610/documentation/notes/chap4.pdf
-- https://www.hamajima.digital/Randal%20E.%20Bryant,%20David%20R.%20O%E2%80%99Hallaron%20-%20Computer%20Systems.%20A%20Programmer%E2%80%99s%20Perspective%20[3rd%20ed.]%20(2016,%20Pearson)%20(1).pdf
+- https://www.cs.sfu.ca/~ashriram/Courses/CS295/assets/books/CSAPP_2016.pdf
 - https://www.youtube.com/watch?v=d9s_d28yJq0
